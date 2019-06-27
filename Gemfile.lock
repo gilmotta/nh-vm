@@ -1,0 +1,36 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aws-eventstream (1.0.3)
+    aws-partitions (1.181.0)
+    aws-sdk-core (3.56.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+      aws-partitions (~> 1.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.22.0)
+      aws-sdk-core (~> 3, >= 3.56.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.43.0)
+      aws-sdk-core (~> 3, >= 3.56.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.1)
+    aws-sigv4 (1.1.0)
+      aws-eventstream (~> 1.0, >= 1.0.2)
+    colorize (0.7.7)
+    geocoder (1.5.1)
+    jmespath (1.4.0)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  aws-sdk-s3 (= 1.43.0)
+  colorize (= 0.7.7)
+  geocoder (= 1.5.1)
+
+RUBY VERSION
+   ruby 2.2.6p396
+
+BUNDLED WITH
+   1.15.4
