@@ -1,3 +1,7 @@
+PATH
+  remote: Gems/speedtest
+  specs:
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -28,6 +32,7 @@ DEPENDENCIES
   aws-sdk-s3 (= 1.43.0)
   colorize (= 0.7.7)
   geocoder (= 1.5.1)
+  speedtest-0.2.4!
 
 RUBY VERSION
    ruby 2.2.6p396
