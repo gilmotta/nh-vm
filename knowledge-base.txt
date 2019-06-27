@@ -1,0 +1,14 @@
+Speed Test Links with interesting information to detect nodes
+
+https://www.speedtest.net/speedtest-config.php
+
+	client ip, lat, long, country
+
+
+https://c.speedtest.net/speedtest-servers-static.php
+
+	list with all servers-static and their country and lat/long
+	
+Chocolatey - Package Manager
+
+https://chocolatey.org/docs/installation

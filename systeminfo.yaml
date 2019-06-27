@@ -1,0 +1,65 @@
+Host Name:                 DESKTOP-IEDO7P1
+OS Name:                   Microsoft Windows 10 Pro
+OS Version:                10.0.17134 N/A Build 17134
+OS Manufacturer:           Microsoft Corporation
+OS Configuration:          Standalone Workstation
+OS Build Type:             Multiprocessor Free
+Registered Owner:          Miners Lounge Nuke
+Registered Organization:
+Product ID:                00330-71364-25413-AAOEM
+Original Install Date:     9/10/2018, 7:42:50 AM
+System Boot Time:          6/19/2019, 5:38:28 PM
+System Manufacturer:
+System Model:
+System Type:               x64-based PC
+Processor(s):              1 Processor(s) Installed.
+                           [01]: Intel64 Family 6 Model 142 Stepping 9 GenuineIntel ~2208 Mhz
+BIOS Version:              Intel Corp. BNKBL357.86A.0042.2017.0303.1854, 3/3/2017
+Windows Directory:         C:\Windows
+System Directory:          C:\Windows\system32
+Boot Device:               \Device\HarddiskVolume2
+System Locale:             en-us;English (United States)
+Input Locale:              en-us;English (United States)
+Time Zone:                 (UTC-05:00) Eastern Time (US & Canada)
+Total Physical Memory:     16,276 MB
+Available Physical Memory: 9,518 MB
+Virtual Memory: Max Size:  18,708 MB
+Virtual Memory: Available: 10,750 MB
+Virtual Memory: In Use:    7,958 MB
+Page File Location(s):     C:\pagefile.sys
+Domain:                    WORKGROUP
+Logon Server:              \\DESKTOP-IEDO7P1
+Hotfix(s):                 7 Hotfix(s) Installed.
+                           [01]: KB4456655
+                           [02]: KB4462930
+                           [03]: KB4465663
+                           [04]: KB4467694
+                           [05]: KB4497398
+                           [06]: KB4503308
+                           [07]: KB4503286
+Network Card(s):           4 NIC(s) Installed.
+                           [01]: Intel(R) Ethernet Connection (4) I219-V
+                                 Connection Name: Ethernet
+                                 Status:          Media disconnected
+                           [02]: Intel(R) Dual Band Wireless-AC 8265
+                                 Connection Name: Wi-Fi
+                                 DHCP Enabled:    Yes
+                                 DHCP Server:     192.168.0.1
+                                 IP address(es)
+                                 [01]: 192.168.0.45
+                                 [02]: fe80::75e4:922d:6f80:2559
+                                 [03]: 2600:1700:3b80:2ca8:e12c:e9a6:8fce:2e8
+                                 [04]: 2600:1700:3b80:2ca8:75e4:922d:6f80:2559
+                           [03]: Bluetooth Device (Personal Area Network)
+                                 Connection Name: Bluetooth Network Connection
+                                 Status:          Media disconnected
+                           [04]: VirtualBox Host-Only Ethernet Adapter
+                                 Connection Name: VirtualBox Host-Only Network
+                                 DHCP Enabled:    No
+                                 IP address(es)
+                                 [01]: 192.168.56.1
+                                 [02]: fe80::fd03:71cf:4951:b23d
+Hyper-V Requirements:      VM Monitor Mode Extensions: Yes
+                           Virtualization Enabled In Firmware: Yes
+                           Second Level Address Translation: Yes
+                           Data Execution Prevention Available: Yes
