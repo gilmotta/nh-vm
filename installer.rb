@@ -14,7 +14,7 @@
   $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
   def isWindowsx64
-    $systeminfo["System Type"].include? "x64"
+    $systeminfo["System Type"].to_s.include? "x64"
   end
   
   def getSystemInfoCsv      
@@ -25,7 +25,11 @@
       
           File.write('systeminfo.csv', $systeminfocsv)
           
-          $systeminfo = CSV.read('systeminfo.csv', headers:true)   
+          $systeminfo = CSV.read('systeminfo.csv', headers:true)
+      else
+        
+        $systeminfocsv = `sudo lshw | less`  # not in csv need to format Linux output
+        
       end          
   end
   
@@ -83,8 +87,10 @@
   
   def install_files_on_windows(manifest)
 
-    path = ".\\vbox\\"
-    unless File.file?(path + manifest["install"])
+	path1 = "vbox\\"
+	logname = "nh-install.txt"
+		
+    unless File.file?(path1 + manifest["install"])
       @logger.debug( "\nInstaller #{manifest["install"]} not found. Failed to install hypervisor on host.\n")
       exit(false)
     end
@@ -96,7 +102,7 @@
     # install all certificates required to run the VM
     manifest['certs'].each do |certname|
       @logger.debug( certname.green.bold + " found.")
-      system("certutil -addstore \"TrustedPublisher\" " + certname)
+      system("certutil -addstore \"TrustedPublisher\" " + path1 + certname)
     end
     
     # ==== STEP 2 .msi or .exe
@@ -109,7 +115,7 @@
     # ==== calling shell to install the hypervisor
     #
     # msiexec /I VirtualBox-2.1.4-42893-Win_amd64.msi /Passive /NoRestart
-    system("msiexec /I #{manifest["install"]} /Passive /NoRestart")
+    system("msiexec /I " + path1 + "#{manifest["install"]} /quiet /passive /norestart /log #{logname}")
     #
     # ====
     
@@ -119,11 +125,74 @@
     elapsed = elapsed/60 # in minutes
     
     @logger.debug("installation completed in #{elapsed} minutes")
-    @logger.debug("file cleanup.")
     
-    exit(true)
+	# make sure Vbox Manager is installed and working
+	virtualBoxVersionCheckSuccess logname
+
+	@logger.debug("file cleanup.")
   end
 
+=begin
+    # ===================================================================================================================
+    # ===================================================================================================================
+    #
+    #     VirtualBoxCheck
+    #
+    # ===================================================================================================================
+    # ===================================================================================================================    
+=end
+
+	def virtualBoxGetPath
+		vbox_x64path = "C:\\Program Files\\Oracle\\VirtualBox\\"
+		vbox_x86path = "C:\\Program Files (x86)\\Oracle\\VirtualBox\\"
+		
+		if isWindowsx64
+			return vbox_x64path
+		else	
+			return vbox_x86path
+		end
+	end
+ 
+  def virtualBoxExists
+  #MSI (s) (AC:C8) [15:37:53:960]: Product: Oracle VM VirtualBox 6.0.8 -- Installation completed successfully.
+	
+	vboxpath = virtualBoxGetPath
+	vmgr = "VBoxManage.exe"
+
+    unless File.file?(vboxpath + vmgr)
+      @logger.debug( "\n#{vboxpath + vmgr} not installed.\n".yellow.bold)
+      return(false)
+    end
+	
+	return(true)
+  end
+  
+  def virtualBoxVersionCheckSuccess filename
+  
+	vboxpath = virtualBoxGetPath
+  	$vmgr_version = nil
+	
+	Dir.chdir(vboxpath) do
+		$vmgr_version = ` .\\VBoxManage.exe -v`
+	end
+	
+	@logger.debug("VBoxManage v." + $vmgr_version.green.bold)
+	
+	if(!$vmgr_version.include? "6.0.8")
+		return(false)
+	end
+	
+	$found = nil
+	File.open filename do |file|
+		 $found = file.find {|line| line =~ /VirtualBox 6.0.8 -- Installation completed successfully/}
+	end
+	
+	if $found == nil
+		return(false)
+	end
+	
+	@logger.debug("Hypervisor installation successful.".green.bold)
+   end
 # ======================================================================================
 #
 #               /$$      /$$  /$$$$$$  /$$$$$$ /$$   /$$
@@ -162,10 +231,15 @@
     
     # get System Information
     getSystemInfoCsv
-   
-   m = isWindowsx64 ? windowsx64_manifest : windowsx86_manifest
-   install_success = install_files_on_windows(JSON.parse(m))
-     
+	
+	m = isWindowsx64 ? windowsx64_manifest : windowsx86_manifest
+	
+	if virtualBoxExists == false
+		install_success = install_files_on_windows(JSON.parse(m))
+	else
+		@logger.debug("Hypervisor already installed!".yellow.bold)
+	end
+    	
   end
     
   puts "bye".cyan.bold
