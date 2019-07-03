@@ -1,26 +1,28 @@
-module OS
+module NODE_HAVEN
+
+  module OS
+   
+    def windows?
+        (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+      end
   
-  def OS.windows?
-      (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
-    end
-  
-    def OS.mac?
+    def mac?
      (/darwin/ =~ RUBY_PLATFORM) != nil
     end
   
-    def OS.unix?
+    def unix?
       !OS.windows?
     end
   
-    def OS.linux?
+    def linux?
       OS.unix? and not OS.mac?
     end
   
-    def OS.jruby?
+    def jruby?
        RUBY_ENGINE == 'jruby'
     end
 
-    def OS.linux_variant
+    def linux_variant
       r = { :distro => nil, :family => nil }
     
       if File.exists?('/etc/lsb-release')
@@ -41,4 +43,6 @@ module OS
     
       return r
     end
+
+  end      
 end

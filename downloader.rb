@@ -8,9 +8,10 @@
   require 'aws-sdk-s3'
   require 'open-uri'
   require 'speedtest'
-  
   require_relative 'os_detector.rb'
 
+  module NODE_HAVEN
+    module Downloader
   # ================= Globals
   $access = 'AKIAU453DS3K36KI34LO'
   $secret = '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'
@@ -55,79 +56,86 @@
   #              | $$ \/  | $$| $$  | $$ /$$$$$$| $$ \  $$
   #              |__/     |__/|__/  |__/|______/|__/  \__/ 
   # ======================================================================================
-  
-  # manifest list of files to download. [installer, ova]
-windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
-linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
+  def main
     
-  puts "Hello Inspector!\n\n".cyan.bold
-  puts "speed test...\n".cyan.bold
-  
-  test = Speedtest::Test.new(
-    download_runs: 2,
-      upload_runs: 2,
-      ping_runs: 2,
-      download_sizes: [750, 1500],
-      upload_sizes: [10000, 400000],
-      debug: false
-   )
+    # manifest list of files to download. [installer, ova]
+    #windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
+    #linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
+    windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+    windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+    linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
       
-   results = test.run
-   puts results   
-   
-  if OS.windows?
-    # setup windows files here
-    puts "Windows".green.bold
-    manifest = windows_manifest
-  else
-    if OS.linux?
-      # setup linux files here
-      puts "Linux".green.bold
-      
-      linux = OS.linux_variant
-      
-      if linux[:distro] == "Ubuntu"
-        puts "Ubuntu detected, install will proceed...".green.bold
-        manifest = linux_manifest
-      else
-        puts "This Linux distro is not support yet.".yellow.bold
-      end
-      
+    puts "Hello Inspector!\n\n".cyan.bold
+    puts "speed test...\n".cyan.bold
+    
+    test = Speedtest::Test.new(
+      download_runs: 2,
+        upload_runs: 2,
+        ping_runs: 2,
+        download_sizes: [750, 1500],
+        upload_sizes: [10000, 400000],
+        debug: false
+     )
+        
+     results = test.run
+     puts results   
+     
+    if OS.windows?
+      # setup windows files here
+      puts "Windows".green.bold
+      manifest = windows_manifest
     else
-      if OS.mac?
-        puts "Sorry MAC is not supported at this time.\n Support for Windows and Ubuntu hosts only\n".red.bold
+      if OS.linux?
+        # setup linux files here
+        puts "Linux".green.bold
+        
+        linux = OS.linux_variant
+        
+        if linux[:distro] == "Ubuntu"
+          puts "Ubuntu detected, install will proceed...".green.bold
+          manifest = linux_manifest
+        else
+          puts "This Linux distro is not support yet.".yellow.bold
+        end
+        
       else
-        puts "Unknown OS not supported.\n Support for Windows and Ubuntu hosts only\n".red.bold
+        if OS.mac?
+          puts "Sorry MAC is not supported at this time.\n Support for Windows and Ubuntu hosts only\n".red.bold
+        else
+          puts "Unknown OS not supported.\n Support for Windows and Ubuntu hosts only\n".red.bold
+        end
+        
       end
       
     end
-    
-  end
-   
-   jsonmanifest = JSON.parse(manifest)      
-
-   if 1 == 1
      
-   #filename = 'VirtualBox-6.0.8-130520-Win.exe'
-   filename = jsonmanifest["installer"]
+     jsonmanifest = JSON.parse(manifest)      
   
-  if 1 == 1
-
-    s3_download filename
-    
+     if 1 == 1  # used to debug
+       
+         #filename = 'VirtualBox-6.0.8-130520-Win.exe'
+         filename = jsonmanifest["installer"]
+        
+        if 1 == 1
+      
+          s3_download filename
+          
+        end
+          
+        # ========================================================================
+        # ========================================================================
+        # OVA file  
+        
+        #filename = 'NodeHavenUbuntu.zip'
+        filename = jsonmanifest["ova"]
+        
+        if 0 == 1
+                 
+          s3_download filename
+          
+        end  
+      end
+  
+    end
   end
-    
-  # ========================================================================
-  # ========================================================================
-  # OVA file  
-  
-  #filename = 'NodeHavenUbuntu.zip'
-  filename = jsonmanifest["ova"]
-  
-  if 0 == 1
-           
-    s3_download filename
-    
-  end  
-  
-  end
+end
