@@ -2,9 +2,13 @@
 
   require 'colorize'
   require_relative 'os_detector'
-  require_relative 'version'
+  
+  #require_relative 'version' # MUST COMMIT TO GITHUB
+  
   require_relative 'geodecoder'
   require_relative 'downloader'
+  require_relative 'installer'
+  require_relative 'hostregistration'
   
   Dir["#{File.dirname(__FILE__)}/**/*.rb"].each { |f| puts 'require ' + f }
 

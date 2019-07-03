@@ -114,7 +114,7 @@
      if 1 == 1  # used to debug
        
          #filename = 'VirtualBox-6.0.8-130520-Win.exe'
-         filename = jsonmanifest["installer"]
+         filename = jsonmanifest["install"]
         
         if 1 == 1
       
