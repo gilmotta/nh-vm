@@ -3,7 +3,7 @@
   require 'colorize'
   require_relative 'os_detector'
   
-  #require_relative 'version' # MUST COMMIT TO GITHUB
+  require_relative 'version' # MUST COMMIT TO GITHUB
   
   require_relative 'geodecoder'
   require_relative 'downloader'
@@ -27,10 +27,16 @@
     puts "Windows Host detected!".green.bold
     
     puts "This is going to take awhile, get some coffee and relax."
+    puts "Discovering host location, capabilities and closest file server ...".green.bold
     Geodecoder.main   # move this call after Ubuntu also
+    puts "Downloading files ...".green.bold
     Downloader.main   # download files from AWS
+    puts "Installing Hypervisor and Node Haven VM ...".green.bold
     Installer.main    # install Hypervisor
+    puts "Joining the Node Haven Federation ...".green.bold
     Hostregistration.main # register this host
+    puts "Welcome to the Node Haven Federation !".green.bold
+    puts "Your host just became a Jedi Apprentice. You will rank up based on your\n host capabilities, reliability and consistency."
     
   else
     if OS.linux?

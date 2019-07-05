@@ -12,3 +12,14 @@ https://c.speedtest.net/speedtest-servers-static.php
 Chocolatey - Package Manager
 
 https://chocolatey.org/docs/installation
+
+windows PowerShell as Admin
+
+1. install chocolatey and close shell
+2. choco install ruby
+3. choco install Git and close shell
+4. git clone nh-vm repo
+5. bundle install
+6. run nh-vm downloader, installer, etc.
+
+having to install httparty and local speedtest-0.2.4 gems manually
