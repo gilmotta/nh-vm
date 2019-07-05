@@ -28,10 +28,10 @@
           
               File.write('systeminfo.csv', $systeminfocsv)
               
-              ## $systeminfo = CSV.read('systeminfo.csv', headers:true)
+              $systeminfo = CSV.read("systeminfo.csv", headers:true)
           else
             
-            $systeminfocsv = `sudo lshw -json`
+              $systeminfocsv = `sudo lshw -json`
             
           end          
       end

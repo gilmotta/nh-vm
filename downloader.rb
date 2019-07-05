@@ -74,7 +74,7 @@
           ping_runs: 2,
           download_sizes: [750, 1500],
           upload_sizes: [10000, 400000],
-          debug: false
+          debug: true
        )
           
        results = test.run
@@ -82,8 +82,17 @@
        
       if OS.windows?
         # setup windows files here
-        puts "Windows".green.bold
+        print "Windows ".green.bold
+        if OS.windows_x64?
+          windows_manifest = windowsx64_manifest
+          print "x64\n".green.bold
+        else
+          windows_manifest = windowsx86_manifest
+          print "x86\n".green.bold
+        end
+        
         manifest = windows_manifest
+        
       else
         if OS.linux?
           # setup linux files here
@@ -152,9 +161,7 @@
     end
   end
   
-  if 1 == 1
-   
-    include NODE_HAVEN
-    
+  if 1 == 1  
+    include NODE_HAVEN    
     Downloader.main
   end

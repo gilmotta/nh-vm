@@ -2,9 +2,7 @@
 
   require 'colorize'
   require_relative 'os_detector'
-  
-  require_relative 'version' # MUST COMMIT TO GITHUB
-  
+  require_relative 'version'
   require_relative 'geodecoder'
   require_relative 'downloader'
   require_relative 'installer'
@@ -24,9 +22,8 @@
   
   if OS.windows?
     # setup windows files here
-    puts "Windows Host detected!".green.bold
-    
-    puts "This is going to take awhile, get some coffee and relax."
+    puts "This is going to take awhile, get some coffee and relax.\n"yellow.bold
+    puts "Windows Host detected!".green.bold  
     puts "Discovering host location, capabilities and closest file server ...".green.bold
     Geodecoder.main   # move this call after Ubuntu also
     puts "Downloading files ...".green.bold
@@ -36,7 +33,7 @@
     puts "Joining the Node Haven Federation ...".green.bold
     Hostregistration.main # register this host
     puts "Welcome to the Node Haven Federation !".green.bold
-    puts "Your host just became a Jedi Apprentice. You will rank up based on your\n host capabilities, reliability and consistency."
+    puts "Your host just became a Jedi Apprentice.\nYou will rank up based on your host capabilities, reliability and consistency.".green.bold
     
   else
     if OS.linux?

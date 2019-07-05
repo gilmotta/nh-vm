@@ -4,7 +4,13 @@ module NODE_HAVEN
    
     def windows?
         (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+    end
+    
+    def OS.windows_x64?
+      if OS.windows?
+        ENV['PROCESSOR_ARCHITECTURE'] == "AMD64"
       end
+    end
   
     def mac?
      (/darwin/ =~ RUBY_PLATFORM) != nil
