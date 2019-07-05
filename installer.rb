@@ -77,7 +77,8 @@
     
       def install_files_on_windows(manifest)
     
-        	path1 = "vbox\\"
+        	#path1 = "vbox\\"
+        	path1 = ""
         	logname = "nh-install.txt"
         		
             unless File.file?(path1 + manifest["install"])
