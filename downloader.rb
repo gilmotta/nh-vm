@@ -58,6 +58,10 @@
     # ======================================================================================
     def main
       
+      @logger = Logger.new(STDOUT)
+      #@logger.level = Logger::WARN
+      @logger.level = Logger::DEBUG
+      
       # manifest list of files to download. [installer, ova]
       #windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
       #linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
