@@ -162,6 +162,8 @@
   end
   
   if 1 == 1  
-    include NODE_HAVEN    
+    include NODE_HAVEN
+    include OS
+    include Downloader   
     Downloader.main
   end
