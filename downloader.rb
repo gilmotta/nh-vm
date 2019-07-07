@@ -56,9 +56,9 @@
     #              | $$ \/  | $$| $$  | $$ /$$$$$$| $$ \  $$
     #              |__/     |__/|__/  |__/|______/|__/  \__/ 
     # ======================================================================================
-    def main
+    def Downloader.main
       
-      @logger.debug( "Downloader main ...")
+      $logger.debug( "Downloader main ...")
       
       # manifest list of files to download. [installer, ova]
       #windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
@@ -128,7 +128,7 @@
           if 1 == 1
 
             jsonmanifest['install'].each do |filename|
-              @logger.debug( filename.green.bold + " found.")
+              $logger.debug( filename.green.bold + " found.")
               s3_download filename
             end
             
@@ -141,7 +141,7 @@
           if 1 == 1
                    
             jsonmanifest['ova'].each do |filename|
-              @logger.debug( filename.green.bold + " found.")
+              $logger.debug( filename.green.bold + " found.")
               s3_download filename
             end
             
@@ -153,7 +153,7 @@
           if 1 == 1 
             
             jsonmanifest['certs'].each do |certname|
-              @logger.debug( certname.green.bold + " found.")
+              $logger.debug( certname.green.bold + " found.")
               s3_download certname
             end
             
@@ -168,6 +168,6 @@
     include NODE_HAVEN
     include OS
     include Downloader
-    @logger.debug("Attention: Debug is enabled!".yellow.bold)   
+    $logger.debug("Attention: Debug is enabled!".yellow.bold)   
     Downloader.main
   end

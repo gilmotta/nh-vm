@@ -40,8 +40,8 @@
           return $systeminfo  
       end
     
-      def main
-        @logger.debug( "Hostregistration main ...")
+      def Hostregistration.main
+        $logger.debug( "Hostregistration main ...")
         
         begin
           uri = URI.parse('https://nh.cargohold.net:8443/hostregistration.php')

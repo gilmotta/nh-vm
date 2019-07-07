@@ -82,7 +82,7 @@
         	logname = "nh-install.txt"
         		
             unless File.file?(path1 + manifest["install"])
-              @logger.debug( "\nInstaller #{manifest["install"]} not found. Failed to install hypervisor on host.\n")
+              $logger.debug( "\nInstaller #{manifest["install"]} not found. Failed to install hypervisor on host.\n")
               exit(false)
             end
             
@@ -92,14 +92,14 @@
             
             # install all certificates required to run the VM
             manifest['certs'].each do |certname|
-              @logger.debug( certname.green.bold + " found.")
+              $logger.debug( certname.green.bold + " found.")
               system("certutil -addstore \"TrustedPublisher\" " + path1 + certname)
             end
             
             # ==== STEP 2 .msi or .exe
             filename = manifest["install"]
             
-            @logger.debug("Installing " + "#{manifest["install"]} ...".green.bold)
+            $logger.debug("Installing " + "#{manifest["install"]} ...".green.bold)
             
             starting = Time.now
            
@@ -115,9 +115,9 @@
             elapsed = ending - starting
             elapsed = elapsed/60 # in minutes
             
-            @logger.debug("installation completed in #{elapsed} minutes")
+            $logger.debug("installation completed in #{elapsed} minutes")
                   
-          	@logger.debug("file cleanup.")
+          	$logger.debug("file cleanup.")
           	
           	# make sure Vbox Manager is installed and working
             return(virtualBoxVersionCheckSuccess logname)
@@ -151,7 +151,7 @@
     	vmgr = "VBoxManage.exe"
     
         unless File.file?(vboxpath + vmgr)
-          @logger.debug( "\n#{vboxpath + vmgr} not installed.\n".yellow.bold)
+          $logger.debug( "\n#{vboxpath + vmgr} not installed.\n".yellow.bold)
           return(false)
         end
     	
@@ -167,7 +167,7 @@
           		$vmgr_version = ` .\\VBoxManage.exe -v`
           	end
           	
-          	@logger.debug("VBoxManage v." + $vmgr_version.green.bold)
+          	$logger.debug("VBoxManage v." + $vmgr_version.green.bold)
           	
           	if(!$vmgr_version.include? "6.0.8")
           		return(false)
@@ -182,7 +182,7 @@
           		return(false)
           	end
           	
-          	@logger.debug("Hypervisor installation successful.".green.bold)
+          	$logger.debug("Hypervisor installation successful.".green.bold)
           	return true
    end
 # ======================================================================================
@@ -197,9 +197,9 @@
 #              |__/     |__/|__/  |__/|______/|__/  \__/ 
 # ======================================================================================
 
-  def main
+  def Installer.main
     
-      @logger.debug( "Installer main ...")
+      $logger.debug( "Installer main ...")
       
       # get my IP address
       ip = open('http://whatismyip.akamai.com').read
@@ -215,7 +215,7 @@
       linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'  
     
       if OS.windows?()
-        @logger.debug("Windows host...")
+        $logger.debug("Windows host...")
         
         # get System Information
         getSystemInfoCsv
@@ -226,9 +226,9 @@
     	if virtualBoxExists == false
     		install_success = install_files_on_windows(JSON.parse(m))
     	else
-    		@logger.debug("Hypervisor already installed!".yellow.bold)
-        @logger.debug("deployment over existing Hypervisor not supported yet.".yellow.bold)
-        @logger.debug("please delete your current Hypervisor before running install again.".yellow.bold)
+    		$logger.debug("Hypervisor already installed!".yellow.bold)
+        $logger.debug("deployment over existing Hypervisor not supported yet.".yellow.bold)
+        $logger.debug("please delete your current Hypervisor before running install again.".yellow.bold)
     	end
         	
       end

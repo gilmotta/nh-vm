@@ -10,9 +10,9 @@
 	
 	  module Geodecoder
 	  
-	    def main
+	    def Geodecoder.main
 	    
-	        @logger.debug( "Geocoder main ...")
+	        $logger.debug( "Geocoder main ...")
         
         	# get my IP address
         	ip = open('http://whatismyip.akamai.com').read
@@ -21,15 +21,7 @@
         	puts results.first.coordinates
         	puts results.first.country
         	
-        	puts
-        	
-        	results = Geocoder.search("52.205.48.33")
-        	puts results.first.coordinates
-        	puts results.first.country
-        	
-        	puts
-        	
-        	server_ip_address = "52.205.48.33"
+        	server_ip_address = ip
         	server_info = open("http://api.ipstack.com/#{server_ip_address}" + "?access_key=724b41fa34f45d09b3161ca59cdd9e54&format=1").read
         	
         	#puts server_info.green
@@ -40,7 +32,7 @@
         	puts info["longitude"].to_s
         	
         	puts "bye".cyan.bold
-  	
+        	return server_info  	
 	    end
 	  end
 	end

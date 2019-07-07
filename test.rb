@@ -14,12 +14,13 @@
   include OS
   include Geodecoder
   include Downloader
-  include Hostregistration
   include Installer
+  include Hostregistration
+
   module NODE_HAVEN
-    @logger = Logger.new(STDOUT)
-    #@logger.level = Logger::WARN
-    @logger.level = Logger::DEBUG
+    $logger = Logger.new(STDOUT)
+    #$logger.level = Logger::WARN
+    $logger.level = Logger::DEBUG
   end
 
   if OS.windows?
