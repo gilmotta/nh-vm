@@ -17,6 +17,10 @@
   include Installer
   include Hostregistration
   
+  @logger = Logger.new(STDOUT)
+  #@logger.level = Logger::WARN
+  @logger.level = Logger::DEBUG
+
   if OS.windows?
     system("cls")
   elsif OS.linux?

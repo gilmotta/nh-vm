@@ -12,9 +12,7 @@
 	  
 	    def main
 	    
-        	puts "Hello Inspector!".cyan.bold
-        	puts "decoding our ip address"
-        	puts
+	        @logger.debug( "Geocoder main ...")
         
         	# get my IP address
         	ip = open('http://whatismyip.akamai.com').read

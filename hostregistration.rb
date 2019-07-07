@@ -41,7 +41,7 @@
       end
     
       def main
-        puts "Hello Inspector!".cyan.bold
+        @logger.debug( "Hostregistration main ...")
         
         begin
           uri = URI.parse('https://nh.cargohold.net:8443/hostregistration.php')

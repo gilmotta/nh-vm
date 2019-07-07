@@ -198,14 +198,9 @@
 # ======================================================================================
 
   def main
-      puts "Hello Inspector!".cyan.bold
-      puts "decoding our ip address".yellow.bold
-      puts
     
-      @logger = Logger.new(STDOUT)
-      #@logger.level = Logger::WARN
-      @logger.level = Logger::DEBUG
-    
+      @logger.debug( "Installer main ...")
+      
       # get my IP address
       ip = open('http://whatismyip.akamai.com').read
     
