@@ -65,13 +65,10 @@
       # manifest list of files to download. [installer, ova]
       #windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
       #linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
-      windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
-      windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx64_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_amd64.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx86_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_x86.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
       linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
-        
-      puts "Hello Inspector!\n\n".cyan.bold
-      puts "speed test...\n".cyan.bold
-      
+             
       test = Speedtest::Test.new(
         download_runs: 2,
           upload_runs: 2,
@@ -129,12 +126,13 @@
            # =============================================================================
            # =============================================================================
            # .MSI or .EXE file
-         
-           filename = jsonmanifest["install"]
-          
+                  
           if 1 == 1
-        
-            s3_download filename
+
+            jsonmanifest['install'].each do |filename|
+              @logger.debug( filename.green.bold + " found.")
+              s3_download filename
+            end
             
           end
             
@@ -142,15 +140,18 @@
           # ========================================================================
           # OVA file  
           
-          #filename = 'NodeHavenUbuntu.zip'
-          filename = jsonmanifest["ova"]
-          
           if 1 == 1
                    
-            s3_download filename
+            jsonmanifest['ova'].each do |filename|
+              @logger.debug( filename.green.bold + " found.")
+              s3_download filename
+            end
             
           end
-          
+         # ========================================================================
+         # ========================================================================
+         # Cert file 
+                    
           if 1 == 1 
             
             jsonmanifest['certs'].each do |certname|
