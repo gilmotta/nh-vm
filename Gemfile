@@ -14,9 +14,7 @@ gem 'httparty', :source => "file://#{File.expand_path('.')}/bundle/"
 gem 'aws-sdk-s3', :source => "file://#{File.expand_path('.')}/bundle/"
 # rubygems
 gem "geocoder", "1.5.1"
-gem "thor", '0.18.1'
-gem "stathat", '0.1.7'
-gem "pony", '1.10'
-gem "tco", "0.1.0"
-gem "tzinfo", '~> 1.1'
-gem "mail", "2.6.1"
+gem "thor"
+gem "stathat"
+gem "pony"
+gem "mail"
