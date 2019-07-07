@@ -16,13 +16,21 @@
   include Downloader
   include Installer
   include Hostregistration
-    
-  puts "\n\nHello Inspector!".cyan.bold
-  puts "version " + NODE_HAVEN::VERSION.cyan.bold
   
   if OS.windows?
+    system("cls")
+  elsif OS.linux?
+    system("clear")
+  end
+  
+  puts "==================================".cyan.bold
+  puts "VMmanizer version " + NODE_HAVEN::VERSION.cyan.bold
+  puts "==================================".cyan.bold
+  
+  puts "This is going to take awhile, get some coffee and relax.\n".yellow.bold
+
+  if OS.windows?
     # setup windows files here
-    puts "This is going to take awhile, get some coffee and relax.\n"yellow.bold
     puts "Windows Host detected!".green.bold  
     puts "Discovering host location, capabilities and closest file server ...".green.bold
     Geodecoder.main   # move this call after Ubuntu also
