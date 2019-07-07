@@ -1,6 +1,7 @@
 # to ignore gems uncomment the line below
 #*.gem
 *.rbc
+*.lock
 /.config
 /coverage/
 /InstalledFiles
