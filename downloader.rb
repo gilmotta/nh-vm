@@ -7,7 +7,6 @@
   require 'colorize'
   require 'aws-sdk-s3'
   require 'open-uri'
-  require 'speedtest'
   require_relative 'os_detector.rb'
 
   module NODE_HAVEN
@@ -65,19 +64,7 @@
       #linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
       windowsx64_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_amd64.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
       windowsx86_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_x86.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
-      linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
-             
-      test = Speedtest::Test.new(
-        download_runs: 2,
-          upload_runs: 2,
-          ping_runs: 2,
-          download_sizes: [750, 1500],
-          upload_sizes: [10000, 400000],
-          debug: true
-       )
-          
-       results = test.run
-       puts results   
+      linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'   
        
       if OS.windows?
         # setup windows files here
@@ -164,6 +151,7 @@
     end
   end
   
+  # debug code for stand alone run
   if 0 == 1  
     include NODE_HAVEN
     include OS

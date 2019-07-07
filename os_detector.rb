@@ -11,7 +11,19 @@ module NODE_HAVEN
         ENV['PROCESSOR_ARCHITECTURE'] == "AMD64"
       end
     end
-  
+    
+    def windows_x86?
+      if OS.windows?
+        ENV['PROCESSOR_ARCHITECTURE'] == "x86"
+      end
+    end
+
+    def windows_x86?
+      if OS.windows?
+        ENV['OS'] == "Windows_NT"
+      end
+    end
+      
     def mac?
      (/darwin/ =~ RUBY_PLATFORM) != nil
     end
