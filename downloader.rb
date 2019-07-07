@@ -166,9 +166,10 @@
     end
   end
   
-  if 1 == 1  
+  if 0 == 1  
     include NODE_HAVEN
     include OS
-    include Downloader   
+    include Downloader
+    @logger.debug("Attention: Debug is enabled!".yellow.bold)   
     Downloader.main
   end
