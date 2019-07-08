@@ -17,3 +17,4 @@ gem "thor"
 gem "stathat"
 gem "pony"
 gem "mail"
+gem 'rubyzip'
