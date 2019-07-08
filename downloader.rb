@@ -26,7 +26,7 @@
       starting = Time.now
       puts "downloading #{filename}".green.bold
       
-      if File.file?(filename)      
+      if File.file?(filename) == false      
           # download using S3 API
           s3 = Aws::S3::Resource.new(region: 'us-east-1', credentials: Aws::Credentials.new($access, $secret))
           
