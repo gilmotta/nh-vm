@@ -47,7 +47,7 @@ require 'speedtest'
            results = test.run
            puts results        	  
         	
-        	puts "bye".cyan.bold
+        	puts "done".cyan.bold
         	return server_info  	
 	    end
 	  end

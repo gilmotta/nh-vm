@@ -66,8 +66,8 @@
       # manifest list of files to download. [installer, ova]
       #windows_manifest = '{"installer":"VirtualBox-6.0.8-130520-Win.exe", "ova": "NodeHavenUbuntu.zip"}'
       #linux_manifest = '{"installer":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
-      windowsx64_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_amd64.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
-      windowsx86_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_x86.msi"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx64_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_amd64.msi"],"cab": ["common.cab"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx86_manifest = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_x86.msi"],"cab": ["common.cab"], "ova": ["NodeHavenUbuntu.zip"], "certs":["oracle-1.cer","oracle-2.cer"]}'
       linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'   
        
       if OS.windows?
@@ -114,8 +114,7 @@
          
            # =============================================================================
            # =============================================================================
-           # .MSI or .EXE file
-                  
+           # .MSI or .EXE file                  
           if 1 == 1
 
             jsonmanifest['install'].each do |filename|
@@ -124,11 +123,22 @@
             end
             
           end
-            
-          # ========================================================================
-          # ========================================================================
-          # OVA file  
           
+           # =============================================================================
+           # =============================================================================
+           # cab files are required by windows, in Linux this will not be necessary        
+          if 1 == 1
+  
+            jsonmanifest['cab'].each do |filename|
+              $logger.debug( filename.green.bold + " found.")
+              s3_download filename
+            end
+            
+          end
+                      
+          # ========================================================================
+          # ========================================================================
+          # OVA file            
           if 1 == 1
                    
             jsonmanifest['ova'].each do |filename|
@@ -137,10 +147,10 @@
             end
             
           end
+          
          # ========================================================================
          # ========================================================================
-         # Cert file 
-                    
+         # Cert file                     
           if 1 == 1 
             
             jsonmanifest['certs'].each do |certname|

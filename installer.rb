@@ -17,11 +17,11 @@
       $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
       def isWindowsx64
-        $systeminfo["System Type"].downcase.include? "x64" == true
+        $systeminfo["System Type"][0].downcase.include?("x64") == true
       end
       
       def isWindowsx86
-        $systeminfo["System Type"].downcase.include? "x86" == true
+        $systeminfo["System Type"][0].downcase.include?("x86") == true
       end
       
       def getSystemInfoCsv      
@@ -171,6 +171,10 @@
       
       def virtualBoxVersionCheckSuccess filename
   
+            if virtualBoxExists == false
+              return(false)
+            end
+            
         	  vboxpath = virtualBoxGetPath
           	$vmgr_version = nil
         	
@@ -214,19 +218,12 @@
 
   def Installer.main
     
-      $logger.debug( "Installer main ...")
-      
-      # get my IP address
-      ip = open('http://whatismyip.akamai.com').read
-    
-      results = Geocoder.search(ip)
-      puts results.first.coordinates.to_s.green.bold
-      puts results.first.country.green.bold
+      $logger.debug( "Installer main ...")      
       puts
         
       # manifest list of files to download. [installer, ova]
-      windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
-      windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi","cab": "", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi","cab": "","ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
       linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'  
     
       if OS.windows?()
@@ -249,7 +246,7 @@
         	
       end
         
-      puts "bye".cyan.bold
+      puts "done".cyan.bold
       return install_success
   end
   

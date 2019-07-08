@@ -60,7 +60,7 @@
           exit(1)
         end
       
-        puts "bye".cyan.bold
+        puts "done".cyan.bold
       end
     
     end
