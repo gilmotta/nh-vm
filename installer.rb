@@ -17,11 +17,11 @@
       $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
       def isWindowsx64
-        $systeminfo["System Type"].to_s.downcase.include? "x64" == true
+        $systeminfo["System Type"].to_s.include? "x64" == true
       end
       
       def isWindowsx86
-        $systeminfo["System Type"].to_s.downcase.include? "x86" == true
+        $systeminfo["System Type"].to_s.include? "x86" == true
       end
       
       def getSystemInfoCsv      
@@ -234,17 +234,17 @@
         
         # get System Information
         getSystemInfoCsv
-    	
-    	m = isWindowsx64 ? windowsx64_manifest : windowsx86_manifest
-    	
-      install_success = false
-    	if virtualBoxExists == false
-    		install_success = install_files_on_windows(JSON.parse(m))
-    	else
-    		$logger.debug("Hypervisor already installed!".yellow.bold)
-        $logger.debug("deployment over existing Hypervisor not supported yet.".yellow.bold)
-        $logger.debug("please delete your current Hypervisor before running install again.".yellow.bold)
-    	end
+        
+        m = isWindowsx64 ? windowsx64_manifest : windowsx86_manifest
+        
+        install_success = false
+        if virtualBoxExists == false
+        	install_success = install_files_on_windows(JSON.parse(m))
+        else
+          $logger.debug("Hypervisor already installed!".yellow.bold)
+          $logger.debug("deployment over existing Hypervisor not supported yet.".yellow.bold)
+          $logger.debug("please delete your current Hypervisor before running install again.".yellow.bold)
+        end
         	
       end
         
