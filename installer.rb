@@ -17,11 +17,11 @@
       $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
       def isWindowsx64
-        $systeminfo["System Type"].to_s.include? "x64" == true
+        $systeminfo["System Type"].include? "x64" == true
       end
       
       def isWindowsx86
-        $systeminfo["System Type"].to_s.include? "x86" == true
+        $systeminfo["System Type"].include? "x86" == true
       end
       
       def getSystemInfoCsv      
