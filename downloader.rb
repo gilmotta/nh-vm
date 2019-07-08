@@ -26,14 +26,18 @@
       starting = Time.now
       puts "downloading #{filename}".green.bold
       
-      # download using S3 API
-      s3 = Aws::S3::Resource.new(region: 'us-east-1', credentials: Aws::Credentials.new($access, $secret))
-      
-      # Create the object to retrieve
-      obj = s3.bucket('nh-storage').object(filename)
-      
-      # Get the item's content and save it to a file
-      obj.get(response_target: './' + filename)
+      if File.file?(filename)      
+          # download using S3 API
+          s3 = Aws::S3::Resource.new(region: 'us-east-1', credentials: Aws::Credentials.new($access, $secret))
+          
+          # Create the object to retrieve
+          obj = s3.bucket('nh-storage').object(filename)
+          
+          # Get the item's content and save it to a file
+          obj.get(response_target: './' + filename)
+      else
+        $logger.debug( "file already exists #{filename}.")
+      end
       
       # time consuming operation
       ending = Time.now
