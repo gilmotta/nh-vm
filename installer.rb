@@ -17,7 +17,11 @@
       $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
       def isWindowsx64
-        $systeminfo["System Type"].to_s.include? "x64"
+        $systeminfo["System Type"].to_s.downcase.include? "x64" == true
+      end
+      
+      def isWindowsx86
+        $systeminfo["System Type"].to_s.downcase.include? "x86" == true
       end
       
       def getSystemInfoCsv      
@@ -139,8 +143,15 @@
     		
     		if isWindowsx64
     			return vbox_x64path
-    		else	
-    			return vbox_x86path
+    		else   		  
+    		  if File.directory?(vbox_x86path)	
+    		    return vbox_x86path
+    		  elsif File.directory?(vbox_x64path)
+            # a 32 bit machine probably running Windows 8/10 
+            return vbox_x64path
+    		  else
+    		    return ""
+    		  end  
     		end
     	end
      
@@ -160,9 +171,13 @@
       
       def virtualBoxVersionCheckSuccess filename
   
-        	vboxpath = virtualBoxGetPath
+        	  vboxpath = virtualBoxGetPath
           	$vmgr_version = nil
         	
+          	if vboxpath == ""
+          	  return(false)
+          	end
+          	  
           	Dir.chdir(vboxpath) do
           		$vmgr_version = ` .\\VBoxManage.exe -v`
           	end

@@ -62,5 +62,32 @@ module NODE_HAVEN
       return r
     end
 
-  end      
-end
+    class GetSystemInfoJSON           
+          def getSystemInfo      
+            if OS.windows?()
+                # if running on windows
+                # get the system info in CSV format
+                $systeminfocsv = `systeminfo /fo CSV`
+            
+                File.write('systeminfo.csv', $systeminfocsv)
+               
+                lines = CSV.open('systeminfo.csv').readlines
+                keys = lines.delete lines.first
+                
+                File.open('systeminfo.json', 'w') do |f|
+                  data = lines.map do |values|
+                    Hash[keys.zip(values)]
+                  end
+                  f.puts JSON.pretty_generate(data)
+                end
+      
+                file = File.open('systeminfo.json')
+                $systeminfo = file.read
+            else
+                $systeminfo = `sudo lshw -json`
+            end
+              return $systeminfo
+          end  
+    end # class   
+  end # module OS     
+end # module NODE
