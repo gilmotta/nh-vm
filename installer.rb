@@ -17,11 +17,11 @@
       $systeminfo = nil     # CSV object, serialized as an array $systeminfo["System Type"]
   
       def isWindowsx64
-        $systeminfo["System Type"].include? "x64" == true
+        $systeminfo["System Type"].downcase.include? "x64" == true
       end
       
       def isWindowsx86
-        $systeminfo["System Type"].include? "x86" == true
+        $systeminfo["System Type"].downcase.include? "x86" == true
       end
       
       def getSystemInfoCsv      
@@ -242,8 +242,9 @@
         	install_success = install_files_on_windows(JSON.parse(m))
         else
           $logger.debug("Hypervisor already installed!".yellow.bold)
-          $logger.debug("deployment over existing Hypervisor not supported yet.".yellow.bold)
-          $logger.debug("please delete your current Hypervisor before running install again.".yellow.bold)
+          $logger.debug("Deployment over existing Hypervisor not supported yet.".yellow.bold)
+          $logger.debug("Please if you can delete your current Hypervisor\n before running this install again.".yellow.bold)
+          $logger.debug("Support for existing Hypervisor coming soon.".yellow.bold)
         end
         	
       end
