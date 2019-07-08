@@ -46,8 +46,8 @@
     Installer.main    # install Hypervisor
     puts "Joining the Node Haven Federation ...".green.bold
     Hostregistration.main # register this host
-    puts "Welcome to the Node Haven Federation !".green.bold
-    puts "Your host just became a Jedi Apprentice.\nYou will rank up based on your host capabilities, reliability and consistency.".green.bold
+    puts "\t\tWelcome to the Node Haven Federation !".green.bold
+    puts "\t\tYour host just became a Jedi Apprentice.\n\t\tYou will rank up based on your host capabilities, reliability and consistency.".green.bold
     
   else
     if OS.linux?
