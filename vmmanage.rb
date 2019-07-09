@@ -6,7 +6,7 @@ require 'open-uri'
 require 'logger'
 require 'yaml' 
 require 'csv'
-require 'zip'
+
 require_relative 'os_detector.rb'
 require_relative 'installer'
 
