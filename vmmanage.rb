@@ -8,12 +8,23 @@ require 'yaml'
 require 'csv'
 require 'zip'
 require_relative 'os_detector.rb'
+require_relative 'installer'
 
 module NODE_HAVEN
   module VMmanage
     def get7ZipPath
-      
+      path1 = "C:\\Program Files\\7-zip\\7z.exe"
+      path2 = "C:\\Program Files (x86)\\7-zip\\7z.exe"
+    
+      if File.exists?(path1)
+        return path1
+      elsif File.exists?(path2)
+        return path2
+      else
+        return ""
+      end  
     end
+    
     def VMmanage.main
       
       # get System Information
@@ -30,9 +41,9 @@ module NODE_HAVEN
         return(false)
       end
       
-      $zip = `7z e .\\NodeHavenUbuntu.ova`
+      $zip = `#{get7ZipPath} e .\\NodeHavenUbuntu.ova`
       
-      $found = $zip.each_line do { |line| line =~ /Everything is Ok/}
+      $found = $zip.each_line do |line| {line =~ /Everything is Ok/}
         
       if $found == nil
         $logger.debug("7z error!".red.bold)
@@ -47,8 +58,6 @@ module NODE_HAVEN
         
       Dir.chdir(vboxpath) do
         $vmgr_version = ` .\\VBoxManage.exe -v`
-        puts "import #{__dir__}\\NodeHavenUbuntu.ova"
-        $vmgr_import = `.\\vboxmanage import #{__dir__}\\NodeHavenUbuntu.ova`
       end
       
       if(!$vmgr_version.include? "6.0.8")
@@ -68,7 +77,10 @@ module NODE_HAVEN
 end
 
 # debug code for stand alone run
-if 0 == 1  
+if 0 == 1
+  $logger = Logger.new(STDOUT)
+  #$logger.level = Logger::WARN
+  $logger.level = Logger::DEBUG  
   include NODE_HAVEN
   include OS
   include Installer

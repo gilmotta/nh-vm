@@ -31,7 +31,7 @@
   end
   
   puts "==================================".cyan.bold
-  puts "VMmanizer version " + NODE_HAVEN::VERSION.cyan.bold
+  puts "=      VMmanizer version " + NODE_HAVEN::VERSION.cyan.bold
   puts "==================================".cyan.bold
   
   puts "This is going to take awhile, get some coffee and relax.\n".yellow.bold
