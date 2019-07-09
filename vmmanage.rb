@@ -11,6 +11,9 @@ require_relative 'os_detector.rb'
 
 module NODE_HAVEN
   module VMmanage
+    def get7ZipPath
+      
+    end
     def VMmanage.main
       
       # get System Information
@@ -27,15 +30,16 @@ module NODE_HAVEN
         return(false)
       end
       
-      Zip::File.open("NodeHavenUbuntu.zip") do |zip_file|
-        # Handle entries one by one
-        zip_file.each do |entry|
-          # Extract to file/directory/symlink
-          puts "Extracting #{entry.name}"
-          entry.extract(dest_file)
-        end
-      end
+      $zip = `7z e .\\NodeHavenUbuntu.ova`
       
+      $found = $zip.each_line do { |line| line =~ /Everything is Ok/}
+        
+      if $found == nil
+        $logger.debug("7z error!".red.bold)
+        return(false)
+      end
+        
+        
       if !File.file?("NodeHavenUbuntu.ova")
         $logger.debug("OVA not found after extraction!".red.bold)
         return(false)

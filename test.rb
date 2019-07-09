@@ -7,6 +7,7 @@
   require_relative 'downloader'
   require_relative 'installer'
   require_relative 'hostregistration'
+  require_relative 'vmmanage'
   
   Dir["#{File.dirname(__FILE__)}/**/*.rb"].each { |f| puts 'require ' + f }
 
