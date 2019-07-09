@@ -21,6 +21,7 @@ module NODE_HAVEN
       elsif File.exists?(path2)
         return path2
       else
+        $logger.debug("7z not found!".red.bold)
         return ""
       end  
     end
@@ -41,14 +42,20 @@ module NODE_HAVEN
         return(false)
       end
       
-      $zip = `#{get7ZipPath} e .\\NodeHavenUbuntu.ova`
+      zipname = "NodeHavenUbuntu.zip"
+      # unzip
+      $zip = `7z e #{zipname}`
       
-      $found = $zip.each_line do |line| {line =~ /Everything is Ok/}
-        
+      $found = $zip.each_line do |line| 
+        line =~ /Everything is Ok/ 
+      end
+       
       if $found == nil
         $logger.debug("7z error!".red.bold)
         return(false)
       end
+        
+      puts $zip.green.bold
         
         
       if !File.file?("NodeHavenUbuntu.ova")

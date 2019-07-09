@@ -14,8 +14,8 @@ module NODE_HAVEN
 end
 
 def get7ZipPath
-  path1 = "C:\\\"Program Files\"\\7-zip\\7z.exe"
-  path2 = "C:\\\"Program Files (x86)\"\\7-zip\\7z.exe"
+  path1 = "C:\\Program Files\\7-zip\\7z.exe"
+  path2 = "C:\\Program Files (x86)\\7-zip\\7z.exe"
 
   if File.exists?(path1)
     return path1
@@ -29,7 +29,7 @@ end
 puts "Hello Inspector".cyan.bold
 puts
 puts get7ZipPath()
-puts "#{__dir__}//testova.zip"
+puts "#{__dir__}/testova.zip"
 
 $zip = `7z e testova.zip`
 
