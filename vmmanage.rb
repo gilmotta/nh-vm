@@ -44,7 +44,7 @@ module NODE_HAVEN
       end
       
       if !File.file?("NodeHavenUbuntu.ova") 
-        if get7ZipPath() != ""
+        if get7ZipPath != ""
             # unzip
             $zip = `7z e #{zipname}`
             
@@ -82,6 +82,7 @@ module NODE_HAVEN
 
       Dir.chdir(vboxpath) do
         $logger.debug("import #{__dir__}/NodeHavenUbuntu.ova")
+        #VBoxManage import C:\Users\Dell\Downloads\Oracle_Upgrade_HOL_18c.ova\Oracle_Upgrade_HOL_18c.ova --dry-run
         $vmgr_import = `.//vboxmanage import #{__dir__}/NodeHavenUbuntu.ova`
       end
       
@@ -93,7 +94,7 @@ module NODE_HAVEN
       end
       
       # Installs extension pack
-      #\VBoxManage extpack install 
+      #\VBoxManage extpack install "filename" -eula accept
       # Launch VM
       #\VBoxManage.exe startvm "vmname" --type headless
       
