@@ -37,12 +37,12 @@ module NODE_HAVEN
       
       vboxpath = Installer.virtualBoxGetPath
       $vmgr_version = nil
-    
-      if vboxpath == ""
+      zipname = "NodeHavenUbuntu.zip"
+      
+      if vboxpath == "" || !File.exists?(zipname)
         return(false)
       end
       
-      zipname = "NodeHavenUbuntu.zip"
       # unzip
       $zip = `7z e #{zipname}`
       

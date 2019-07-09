@@ -43,8 +43,10 @@
     Geodecoder.main   # move this call after Ubuntu also
     puts "Downloading files ...".green.bold
     Downloader.main   # download files from AWS
-    puts "Installing Hypervisor and Node Haven VM ...".green.bold
+    puts "Installing Hypervisor ...".green.bold
     Installer.main    # install Hypervisor
+    puts "Importing Node Haven VM ..."
+    VMmanage.main    # install Hypervisor
     puts "Joining the Node Haven Federation ...".green.bold
     Hostregistration.main # register this host
     puts "\t\tWelcome to the Node Haven Federation !".green.bold
