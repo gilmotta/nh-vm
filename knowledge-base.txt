@@ -13,13 +13,24 @@ Chocolatey - Package Manager
 
 https://chocolatey.org/docs/installation
 
-windows PowerShell as Admin
+Open windows PowerShell as Admin
 
-1. install chocolatey and close shell
-2. choco install ruby
-3. choco install Git and close shell
-4. git clone nh-vm repo
-5. bundle install
-6. run nh-vm downloader, installer, etc.
+1. install chocolatey
 
-having to install httparty and local speedtest-0.2.4 gems manually
+        From https://chocolatey.org/install        
+        type: Get-ExecutionPolicy. If it returns Restricted, then type: Set-ExecutionPolicy AllSigned
+        type: 
+        "Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))"
+        
+        do not include quotes.
+
+2. type: choco install ruby
+3. type: choco install Git 
+4. type: choco install 7zip
+5. close PowerShell shell
+6. open PowerShell as Admin
+7. go to C:\ (root)
+8. type: git clone https://github.com/gilmotta/nh-vm.git
+9. type: cd \nh-vm
+5. type: bundle install
+6. type: test.rb

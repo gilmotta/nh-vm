@@ -8,6 +8,7 @@
   require_relative 'installer'
   require_relative 'hostregistration'
   require_relative 'vmmanage'
+  require_relative 'manifest'
   
   Dir["#{File.dirname(__FILE__)}/**/*.rb"].each { |f| puts 'require ' + f }
 
@@ -17,6 +18,7 @@
   include Downloader
   include Installer
   include Hostregistration
+  include Manifest
 
   module NODE_HAVEN
     $logger = Logger.new(STDOUT)

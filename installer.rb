@@ -222,8 +222,8 @@
       puts
         
       # manifest list of files to download. [installer, ova]
-      windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi","cab": "", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
-      windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi","cab": "","ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx64_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_amd64.msi","cab": "","ext": "", "ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
+      windowsx86_manifest = '{"install":"VirtualBox-6.0.8-r130520-MultiArch_x86.msi","cab": "","ext": "","ova": "NodeHavenUbuntu.zip", "certs":["oracle-1.cer","oracle-2.cer"]}'
       linux_manifest = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'  
     
       if OS.windows?()

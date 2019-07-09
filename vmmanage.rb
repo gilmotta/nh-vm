@@ -43,26 +43,30 @@ module NODE_HAVEN
         return(false)
       end
       
-      if !File.file?("NodeHavenUbuntu.ova")        
-        # unzip
-        $zip = `7z e #{zipname}`
-        
-        $found = $zip.each_line do |line| 
-          line =~ /Everything is Ok/ 
-        end
-         
-        if $found == nil
-          $logger.debug("7z error!".red.bold)
+      if !File.file?("NodeHavenUbuntu.ova") 
+        if get7ZipPath() != ""
+            # unzip
+            $zip = `7z e #{zipname}`
+            
+            $found = $zip.each_line do |line| 
+              line =~ /Everything is Ok/ 
+            end
+             
+            if $found == nil
+              $logger.debug("7z error!".red.bold)
+              return(false)
+            end
+              
+            puts $zip.green.bold
+            
+            if !File.file?("NodeHavenUbuntu.ova")
+              $logger.debug("OVA not found after extraction!".red.bold)
+              return(false)
+            end
+        else
+          $logger.debug("7z not installed. Aborting install.".red.bold)
           return(false)
         end
-          
-        puts $zip.green.bold
-        
-        if !File.file?("NodeHavenUbuntu.ova")
-          $logger.debug("OVA not found after extraction!".red.bold)
-          return(false)
-        end
-
       else
         $logger.debug("OVA already exists skipping decompression.".yellow.bold)
       end  
@@ -77,11 +81,11 @@ module NODE_HAVEN
       end
 
       Dir.chdir(vboxpath) do
-        $logger.debug("import #{__dir__}//NodeHavenUbuntu.ova")
-        $vmgr_import = `.//vboxmanage import #{__dir__}//NodeHavenUbuntu.ova`
+        $logger.debug("import #{__dir__}/NodeHavenUbuntu.ova")
+        $vmgr_import = `.//vboxmanage import #{__dir__}/NodeHavenUbuntu.ova`
       end
       
-      if $vmgr_import.includes?("error:")
+      if $vmgr_import.include?("error:")
         $logger.debug("VM import error.".red.bold)
         return(false)
       else
