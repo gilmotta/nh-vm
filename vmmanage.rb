@@ -13,8 +13,8 @@ require_relative 'installer'
 module NODE_HAVEN
   module VMmanage
     def get7ZipPath
-      path1 = "C:\\Program Files\\7-zip\\7z.exe"
-      path2 = "C:\\Program Files (x86)\\7-zip\\7z.exe"
+      path1 = "C://Program Files//7-zip//7z.exe"
+      path2 = "C://Program Files (x86)//7-zip//7z.exe"
     
       if File.exists?(path1)
         return path1
@@ -43,41 +43,50 @@ module NODE_HAVEN
         return(false)
       end
       
-      # unzip
-      $zip = `7z e #{zipname}`
-      
-      $found = $zip.each_line do |line| 
-        line =~ /Everything is Ok/ 
-      end
-       
-      if $found == nil
-        $logger.debug("7z error!".red.bold)
-        return(false)
-      end
+      if !File.file?("NodeHavenUbuntu.ova")        
+        # unzip
+        $zip = `7z e #{zipname}`
         
-      puts $zip.green.bold
+        $found = $zip.each_line do |line| 
+          line =~ /Everything is Ok/ 
+        end
+         
+        if $found == nil
+          $logger.debug("7z error!".red.bold)
+          return(false)
+        end
+          
+        puts $zip.green.bold
         
-        
-      if !File.file?("NodeHavenUbuntu.ova")
-        $logger.debug("OVA not found after extraction!".red.bold)
-        return(false)
-      end
-        
+        if !File.file?("NodeHavenUbuntu.ova")
+          $logger.debug("OVA not found after extraction!".red.bold)
+          return(false)
+        end
+
+      else
+        $logger.debug("OVA already exists skipping decompression.".yellow.bold)
+      end  
+                
       Dir.chdir(vboxpath) do
-        $vmgr_version = ` .\\VBoxManage.exe -v`
+        $vmgr_version = ` .//VBoxManage.exe -v`
       end
       
       if(!$vmgr_version.include? "6.0.8")
         $logger.debug("VBoxManage v." + $vmgr_version)
-        $logger.debug("virtualbox is not the correct version!".red.bold)
+        $logger.debug("virtualbox is not the correct version!".yellow.bold)
       end
 
       Dir.chdir(vboxpath) do
-        $logger.debug("import #{__dir__}\\NodeHavenUbuntu.ova")
-        $vmgr_import = `.\\vboxmanage import #{__dir__}\\NodeHavenUbuntu.ova`
+        $logger.debug("import #{__dir__}//NodeHavenUbuntu.ova")
+        $vmgr_import = `.//vboxmanage import #{__dir__}//NodeHavenUbuntu.ova`
       end
       
-      $logger.debug("VM imported successfully.".green.bold)
+      if $vmgr_import.includes?("error:")
+        $logger.debug("VM import error.".red.bold)
+        return(false)
+      else
+        $logger.debug("VM imported successfully.".green.bold)
+      end
       return true
     end
   end
