@@ -91,6 +91,13 @@ module NODE_HAVEN
       else
         $logger.debug("VM imported successfully.".green.bold)
       end
+      
+      # Installs extension pack
+      #\VBoxManage extpack install 
+      # Launch VM
+      #\VBoxManage.exe startvm "vmname" --type headless
+      
+      
       return true
     end
   end
