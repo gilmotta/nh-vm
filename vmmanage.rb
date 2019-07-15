@@ -97,9 +97,8 @@ module NODE_HAVEN
       #\VBoxManage extpack install "filename" -eula accept
       # Launch VM
       #\VBoxManage.exe startvm "vmname" --type headless
-      
-      
-      return true
+            
+      return(true)
     end
   end
 end

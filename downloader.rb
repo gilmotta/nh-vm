@@ -12,8 +12,6 @@
   module NODE_HAVEN
     module Downloader
     # ================= Globals
-    $access = 'AKIAU453DS3K36KI34LO'
-    $secret = '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'
     
     $s3_path = 'https://nh-storage.s3.amazonaws.com/'
    

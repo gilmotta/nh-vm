@@ -9,9 +9,20 @@ module NODE_HAVEN
     
     WINDOWSX86_MANIFEST = '{"install":["VirtualBox-6.0.8-r130520-MultiArch_x86.msi"],
                             "cab": ["common.cab"],
+                            "ext":["Oracle_VM_VirtualBox_Extension_Pack-6.0.8.vbox-extpack"],
                             "ova": ["NodeHavenUbuntu.zip"],
                             "certs":["oracle-1.cer","oracle-2.cer"]}'
     
-    LINUX_MANIFEST = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'   
+    LINUX_MANIFEST = '{"install":"virtualbox-6.0_6.0.8-130520_Ubuntu_bionic_amd64.deb", "ova":"NodeHavenUbuntu.zip"}'
+    
+    def getManifest hostinfo
+      
+      # host info is the information collected from systeminfo
+      
+      # calls Master Yoda and receives the manifest
+      
+      # returns the manifest
+      return ""
+    end
   end
 end
